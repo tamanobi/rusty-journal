@@ -2,7 +2,6 @@ use std::fs::OpenOptions;
 use std::io::{BufReader, Result, Seek, SeekFrom};
 
 pub fn add_task(journal_path: PathBuf, task: Task) -> Result<()> {
-    // Open the file.
     let file = OpenOptions::new()
         .read(true)
         .write(true)
