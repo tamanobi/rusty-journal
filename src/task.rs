@@ -1,5 +1,5 @@
 use std::fs::OpenOptions;
-use std::io::{BufReader, Result, Seek, SeekFrom};
+use std::io::{BufReader, Result, Seek, SeekFrom, Error, ErrorKind};
 use chrono::{serde::ts_seconds, DateTime, Utc, Local};
 use serde::Deserialize;
 use serde::Serialize;
@@ -40,4 +40,17 @@ pub fn add_task(journal_path: PathBuf, task: Task) -> Result<()> {
     serde_json::to_writer(file, &tasks)?;
 
     Ok(())
+}
+
+
+pub fn complete_task(journal_path: PathBuf, task_position: usize) -> Result<()> {
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .open(journal_path);
+    let tasks = match serde_json::from_reader(file) {
+        Ok(tasks) => tasks,
+        Err(e) if e.is_eof() => Vec::new(),
+        Err(e) => Err(e)?,
+    };
 }
