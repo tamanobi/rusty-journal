@@ -53,4 +53,15 @@ pub fn complete_task(journal_path: PathBuf, task_position: usize) -> Result<()> 
         Err(e) if e.is_eof() => Vec::new(),
         Err(e) => Err(e)?,
     };
+
+    if task_position == 0 || task_position > tasks.len() {
+        return Err(Error::new(ErrorKind::InvalidInput, "Invalid Task ID"));
+    }
+    tasks.remove(task_position);
+
+    file.seek(SeekFrom::Start(0))?;
+    file.set_len(0);
+
+    serde_json::to_writer(file, &tasks)?;
+    Ok(())
 }
