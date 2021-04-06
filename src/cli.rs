@@ -6,22 +6,19 @@ pub enum Action {
     Add {
         /// description
         #[structopt()]
-        task: String
+        task: String,
     },
     Done {
         /// position
         #[structopt()]
-        position: usize
+        position: usize,
     },
     /// List all
     List,
 }
 
 #[derive(Debug, StructOpt)]
-#[structopt(
-    name = "Rusty Journal",
-    about = "Journal"
-)]
+#[structopt(name = "Rusty Journal", about = "Journal")]
 pub struct CommandLineArgs {
     #[structopt(subcommand)]
     pub action: Action,
