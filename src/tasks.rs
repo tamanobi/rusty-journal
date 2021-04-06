@@ -3,7 +3,7 @@ use serde::Deserialize;
 use serde::Serialize;
 use std::fmt;
 use std::fs::{File, OpenOptions};
-use std::io::{BufReader, Error, ErrorKind, Result, Seek, SeekFrom};
+use std::io::{Error, ErrorKind, Result, Seek, SeekFrom};
 use std::path::PathBuf;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -65,7 +65,7 @@ pub fn complete_task(journal_path: PathBuf, task_position: usize) -> Result<()> 
     tasks.remove(task_position - 1);
 
     file.seek(SeekFrom::Start(0))?;
-    file.set_len(0);
+    file.set_len(0)?;
 
     serde_json::to_writer(file, &tasks)?;
     Ok(())
