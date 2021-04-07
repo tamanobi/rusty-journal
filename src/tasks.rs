@@ -87,3 +87,50 @@ pub fn list_tasks(journal_path: PathBuf) -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_collect_tasks() {
+        use std::env;
+
+        let mut current = env::current_dir().expect("パスが取得できなかった");
+        current.push("src/fixture/empty.json");
+        dbg!(&current);
+        let file = OpenOptions::new().read(true).open(current).expect("ファイルが開けないです");
+        match collect_tasks(&file) {
+            Ok(vec) => assert!(vec.len() == 0),
+            Err(_) => panic!(),
+        };
+    }
+
+    #[test]
+    fn test_collect_tasks2() {
+        use std::env;
+
+        let mut current = env::current_dir().expect("パスが取得できなかった");
+        current.push("src/fixture/invalid.json");
+        dbg!(&current);
+        let file = OpenOptions::new().read(true).open(current).expect("ファイルが開けないです");
+        match collect_tasks(&file) {
+            Ok(_) => panic!(),
+            Err(_) => (),
+        };
+    }
+
+    #[test]
+    fn test_collect_tasks3() {
+        use std::env;
+
+        let mut current = env::current_dir().expect("パスが取得できなかった");
+        current.push("src/fixture/valid.json");
+        dbg!(&current);
+        let file = OpenOptions::new().read(true).open(current).expect("ファイルが開けないです");
+        match collect_tasks(&file) {
+            Ok(vec) => assert!(vec.len() == 2),
+            Err(_) => panic!(),
+        };
+    }
+}
