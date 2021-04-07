@@ -17,6 +17,11 @@ $ ls -lh ./target/{debug,release,x86_64-unknown-linux-musl/release}/rusty-journa
 
 小さなTODOアプリだが、リリースビルドだとしても4.0Mと大きめのバイナリになっている。静的リンクをしているため、muslビルドだと、0.5M増している。
 
+## Linux musl ターゲットでポータブルなバイナリの作り方
+
+* https://blog.rust-jp.rs/tatsuya6502/posts/2019-12-statically-linked-binary/
+* https://blog.rust-jp.rs/tatsuya6502/posts/2019-12-small-docker-image/
+
 
 # see also
 
