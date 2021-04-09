@@ -18,7 +18,6 @@ fn main() -> anyhow::Result<()> {
         action,
         journal_file,
     } = CommandLineArgs::from_args();
-    // dbg!(&args);
 
     let journal_path = journal_file
         .or_else(find_default_journal_file)
