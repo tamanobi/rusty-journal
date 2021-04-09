@@ -53,8 +53,8 @@ jobs:
           use-cross: true
 
       - run: |
-          zip --junk-paths slack-stream-json-${{ matrix.target }} target/${{ matrix.target }}/release/slack-stream-json{,.exe}
+          zip --junk-paths rusty-journal-${{ matrix.target }} target/${{ matrix.target }}/release/rusty-journal{,.exe}
       - uses: actions/upload-artifact@v1
         with:
           name: build-${{ matrix.target }}
-          path: slack-stream-json-${{ matrix.target }}.zip
+          path: rusty-journal-${{ matrix.target }}.zip
