@@ -73,7 +73,7 @@ jobs:
           draft: false
           prerelease: false
       - run: |
-          echo '${{ steps.create-release.outputs.upload_url }}' > release_upload_urls.txt
+          echo '${{ steps.create-release.outputs.upload_url }}' > release_upload_url.txt
       - uses: actions/upload-artifact@v1
         with:
           name: create-release
